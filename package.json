@@ -14,7 +14,8 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-toastify": "^3.1.0"
+    "react-toastify": "^3.1.0",
+    "webpack-uglify-parallel": "^0.1.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

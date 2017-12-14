@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlwebpackPlugin = require('html-webpack-plugin')
+const UglifyJsParallelPlugin = require('webpack-uglify-parallel')
 
 module.exports = {
   entry: './app/pages/home/index.js',
@@ -25,6 +26,21 @@ module.exports = {
       template: 'index.html',
       filename: 'index.html',
       chunksSortMode: 'dependency'
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new UglifyJsParallelPlugin({
+      workers: os.cpus().length,
+      output: {
+        ascii_only: true,
+      },
+      compress: {
+        warnings: false,
+      },
+      sourceMap: false
     })
   ],
 };
