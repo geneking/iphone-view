@@ -1,0 +1,98 @@
+* {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family: monospace;
+}
+html, body {
+  height: 100%;
+  background-color: #28323e;
+}
+
+.type-button {
+  width: 90px;
+  line-height: 25px;
+  font-size: 12px;
+  color: #777;
+  cursor: pointer;
+  border: 0 solid #777;
+  background-color: #fff;
+  border-radius: 2px;
+  outline: none;
+}
+.type-button:hover,
+.type-button.active {
+  color: #0f88eb;
+  border: 0 solid #0f88eb;
+}
+.button {
+  display: flex;
+  width: 200px;
+  margin: 30px auto;
+  font-size: 14px;
+  height: 35px;
+  color: #fff;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #0f88eb;
+  border: 1px solid #0f88eb;
+  border-radius: 2px;
+  outline: none;
+}
+
+.content {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+}
+.left {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(255, 255, 255, .1);
+}
+.right {
+  display: flex;
+  /*align-items: center;*/
+  justify-content: center;
+  width: 280px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.left img {
+  width: 260px;
+}
+.right .type-wrap {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 30px auto;
+}
+.right .upload-wrap {
+  position: relative;
+  display: flex;
+  width: 200px;
+  margin: 30px auto;
+  overflow: hidden;
+}
+.right a.button {
+  display: flex;
+  line-height: 35px;
+  font-size: 14px;
+  font-family: monospace;
+  text-decoration: none;
+}
+.right .upload-wrap input {
+  display: inline-block;
+  position: absolute;
+  width: 200px;
+  height: 35px;
+  z-index: 3;
+  opacity: 0;
+}
+.right .upload-wrap button {
+  margin: 0;
+}
