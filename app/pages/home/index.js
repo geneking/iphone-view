@@ -88,10 +88,13 @@ class App extends React.Component {
    * [reset 重置画布]
    */
   reset = () => {
-    this.state.context.clearRect(0, 0, this.state.height, this.state.width)
+    document.getElementById('upload').value = ''
+    this.state.context.clearRect(0, 0, this.state.width, this.state.height)
     this.setState({
       combineSuccess: false,
       theme: this.state.whiteTheme ? iphoneWhiteImg : iphoneBlackImg,
+    }, ()=> {
+      this.draw(this.state.theme, 0, 0)
     })
   }
 
