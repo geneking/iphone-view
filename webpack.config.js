@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const HtmlwebpackPlugin = require('html-webpack-plugin')
 const UglifyJsParallelPlugin = require('webpack-uglify-parallel')
@@ -33,7 +34,6 @@ module.exports = {
       }
     }),
     new UglifyJsParallelPlugin({
-      workers: os.cpus().length,
       output: {
         ascii_only: true,
       },

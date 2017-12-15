@@ -2,9 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { toast, ToastContainer } from 'react-toastify'
 
-import './index.css'
+import config from './config'
 import iphoneWhiteImg from '../../assets/iphone_white.png'
 import iphoneBlackImg from '../../assets/iphone_black.png'
+import './index.css'
 
 class App extends React.Component {
   constructor(props) {
@@ -12,8 +13,12 @@ class App extends React.Component {
     this.state = {
       canvas: null,
       context: null,
-      height: 1761,
-      width: 854,
+      x: config.iphone_4_7.x,
+      y: config.iphone_4_7.y,
+      height: config.iphone_4_7.height,
+      width: config.iphone_4_7.width,
+      canvasHeight: config.iphone_4_7.canvasHeight,
+      canvasWidth: config.iphone_4_7.canvasWidth,
       whiteTheme: true,
       theme: iphoneWhiteImg,
       combineSuccess: false,
@@ -25,8 +30,8 @@ class App extends React.Component {
    */
   initCanvas = () => {
     const canvas = document.createElement('canvas')
-    canvas.width = this.state.width
-    canvas.height = this.state.height
+    canvas.width = this.state.canvasWidth
+    canvas.height = this.state.canvasHeight
     const context = canvas.getContext('2d')
     this.setState({
       context,
@@ -44,8 +49,13 @@ class App extends React.Component {
   draw = (url, x, y, callback) => {
     const image = new Image();
     image.onload = () => {
-      this.state.context.drawImage(image, x, y)
-      callback && callback(this.state.canvas.toDataURL('image/png'))
+      if (!callback) {
+        // 模板
+        this.state.context.drawImage(image, x, y)
+      } else {
+        // 截图
+        this.state.context.drawImage(image, x, y, this.state.width, this.state.height)
+        callback(this.state.canvas.toDataURL('image/png'))      }
     }
     image.src = url;
   }
@@ -69,7 +79,7 @@ class App extends React.Component {
    * @param  {Function} callback [合成后回调]
    */
   combine = (url, callback) => {
-    this.draw(url, 58, 215, callback)
+    this.draw(url, this.state.x, this.state.y, callback)
   }
 
   /**
@@ -89,7 +99,7 @@ class App extends React.Component {
    */
   reset = () => {
     document.getElementById('upload').value = ''
-    this.state.context.clearRect(0, 0, this.state.width, this.state.height)
+    this.state.context.clearRect(0, 0, this.state.canvasWidth, this.state.canvasHeight)
     this.setState({
       combineSuccess: false,
       theme: this.state.whiteTheme ? iphoneWhiteImg : iphoneBlackImg,
