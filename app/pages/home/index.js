@@ -64,16 +64,14 @@ class App extends React.Component {
    * [handleSwitchSize 尺寸切换]
    */
   handleSwitchSize = (e) => {
-    const size = e.target.name;
-    this.reset(size, this.state.themeType)
+    this.reset(e.target.name, this.state.themeType)
   }
 
   /**
    * [handleSwitchType 黑白模板切换]
    */
   handleSwitchTheme = (e) => {
-    const themeType = e.target.name
-    this.reset(this.state.size, themeType)
+    this.reset(this.state.size, e.target.name)
   }
 
   /**
@@ -82,7 +80,6 @@ class App extends React.Component {
    * @param  {Function} callback [合成后回调]
    */
   combine = (url, callback) => {
-    debugger
     this.draw(url, this.state.x, this.state.y, callback)
   }
 
