@@ -21,6 +21,14 @@ module.exports = {
     react: 'React',
     'react-dom': 'ReactDOM'
   },
+  resolve: {
+    alias: {
+      pages: path.resolve(__dirname, 'app/pages'),
+      config: path.resolve(__dirname, 'app/config'),
+      assets: path.resolve(__dirname, 'app/assets'),
+    },
+    extensions: ['.js', '.json']
+  },
   plugins: [
     new HtmlwebpackPlugin({
       js: ['index.js'],

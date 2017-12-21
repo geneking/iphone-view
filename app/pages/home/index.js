@@ -2,9 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { toast, ToastContainer } from 'react-toastify'
 
-import config from './config'
-import iphoneWhiteImg from '../../assets/iphone_white.png'
-import iphoneBlackImg from '../../assets/iphone_black.png'
+import mockup from 'config/mockup'
+import flex from 'config/flex'
 import './index.css'
 
 class App extends React.Component {
@@ -13,14 +12,15 @@ class App extends React.Component {
     this.state = {
       canvas: null,
       context: null,
-      x: config.iphone_4_7.x,
-      y: config.iphone_4_7.y,
-      height: config.iphone_4_7.height,
-      width: config.iphone_4_7.width,
-      canvasHeight: config.iphone_4_7.canvasHeight,
-      canvasWidth: config.iphone_4_7.canvasWidth,
-      whiteTheme: true,
-      theme: iphoneWhiteImg,
+      x: flex.iphone_4_7.x,
+      y: flex.iphone_4_7.y,
+      height: flex.iphone_4_7.height,
+      width: flex.iphone_4_7.width,
+      canvasHeight: flex.iphone_4_7.canvasHeight,
+      canvasWidth: flex.iphone_4_7.canvasWidth,
+      size: '4_7',
+      themeType: 'white',
+      theme: mockup.white_4_7,
       combineSuccess: false,
     }
   }
@@ -61,16 +61,19 @@ class App extends React.Component {
   }
 
   /**
+   * [handleSwitchSize 尺寸切换]
+   */
+  handleSwitchSize = (e) => {
+    const size = e.target.name;
+    this.reset(size, this.state.themeType)
+  }
+
+  /**
    * [handleSwitchType 黑白模板切换]
    */
-  handleSwitchType = () => {
-    this.reset()
-    this.setState({
-      theme: this.state.whiteTheme ? iphoneBlackImg : iphoneWhiteImg,
-      whiteTheme: !this.state.whiteTheme,
-    }, () => {
-      this.draw(this.state.theme, 0, 0)
-    })
+  handleSwitchTheme = (e) => {
+    const themeType = e.target.name
+    this.reset(this.state.size, themeType)
   }
 
   /**
@@ -79,6 +82,7 @@ class App extends React.Component {
    * @param  {Function} callback [合成后回调]
    */
   combine = (url, callback) => {
+    debugger
     this.draw(url, this.state.x, this.state.y, callback)
   }
 
@@ -97,13 +101,24 @@ class App extends React.Component {
   /**
    * [reset 重置画布]
    */
-  reset = () => {
+  reset = (size, themeType) => {
+    const iphone = `iphone_${size}`
     document.getElementById('upload').value = ''
     this.state.context.clearRect(0, 0, this.state.canvasWidth, this.state.canvasHeight)
     this.setState({
+      x: flex[iphone].x,
+      y: flex[iphone].y,
+      height: flex[iphone].height,
+      width: flex[iphone].width,
+      canvasHeight: flex[iphone].canvasHeight,
+      canvasWidth: flex[iphone].canvasWidth,
       combineSuccess: false,
-      theme: this.state.whiteTheme ? iphoneWhiteImg : iphoneBlackImg,
+      theme: mockup[`${themeType}_${size}`],
+      size,
+      themeType,
     }, ()=> {
+      this.state.canvas.width = this.state.canvasWidth
+      this.state.canvas.height = this.state.canvasHeight
       this.draw(this.state.theme, 0, 0)
     })
   }
@@ -153,12 +168,26 @@ class App extends React.Component {
           <div className="right-inner">
             <div className="type-wrap">
               <button
-                className={`type-button ${this.state.whiteTheme ? 'active' : ''}`}
-                onClick={this.handleSwitchType}
+                className={`type-button ${this.state.size === '4_7' ? 'active' : ''}`}
+                name="4_7"
+                onClick={this.handleSwitchSize}
+              >4.7"</button>
+              <button
+                className={`type-button ${this.state.size === '5_5' ? 'active' : ''}`}
+                name="5_5"
+                onClick={this.handleSwitchSize}
+              >5.5"</button>
+            </div>
+            <div className="type-wrap">
+              <button
+                className={`type-button ${this.state.themeType === 'white' ? 'active' : ''}`}
+                name="white"
+                onClick={this.handleSwitchTheme}
               >白色</button>
               <button
-                className={`type-button ${!this.state.whiteTheme ? 'active' : ''}`}
-                onClick={this.handleSwitchType}
+                className={`type-button ${!this.state.themeType === 'black' ? 'active' : ''}`}
+                name="black"
+                onClick={this.handleSwitchTheme}
               >黑色</button>
             </div>
             <div className="upload-wrap">
@@ -166,7 +195,9 @@ class App extends React.Component {
               <button className="button">上传图片</button>
             </div>
             <a className="button" download href={this.state.theme} onClick={this.downloadImage}>下载图片</a>
-            <button className="button" onClick={this.reset}>重置</button>
+            <button className="button" onClick={() => {
+              this.reset(this.state.size, this.state.themeType)
+            }}>重置</button>
           </div>
         </div>
         <ToastContainer autoClose={3000} />

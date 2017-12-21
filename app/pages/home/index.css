@@ -24,7 +24,7 @@ html, body {
 .type-button:hover,
 .type-button.active {
   color: #0f88eb;
-  border: 0 solid #0f88eb;
+  border: 1px solid #0f88eb;
 }
 .button {
   display: flex;
@@ -57,7 +57,6 @@ html, body {
 }
 .right {
   display: flex;
-  /*align-items: center;*/
   justify-content: center;
   width: 280px;
   height: 100%;
@@ -89,6 +88,7 @@ html, body {
 .right .upload-wrap input {
   display: inline-block;
   position: absolute;
+  top: 30px;
   width: 200px;
   height: 35px;
   z-index: 3;
@@ -96,4 +96,5 @@ html, body {
 }
 .right .upload-wrap button {
   margin: 0;
+  margin-top: 30px;
 }

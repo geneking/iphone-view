@@ -4,7 +4,7 @@ const HtmlwebpackPlugin = require('html-webpack-plugin')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
 module.exports = {
-  entry: './app/index.js',
+  entry: './app/pages/home/index.js',
   module: {
     rules: [
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
@@ -20,6 +20,14 @@ module.exports = {
   externals: {
     react: 'React',
     'react-dom': 'ReactDOM'
+  },
+  resolve: {
+    alias: {
+      pages: path.resolve(__dirname, 'app/pages'),
+      config: path.resolve(__dirname, 'app/config'),
+      assets: path.resolve(__dirname, 'app/assets'),
+    },
+    extensions: ['.js', '.json']
   },
   plugins: [
     new HtmlwebpackPlugin({
