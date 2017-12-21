@@ -40,6 +40,22 @@ class App extends React.Component {
   }
 
   /**
+   * [baseb4ToBlob base64转blob]
+   * @param  {[type]} dataURL [base64编码]
+   */
+  base64ToBlob(dataURL) {
+    const parts = dataURL.split(';base64,')
+    const contentType = parts[0].split(':')[1]
+    const raw = window.atob(parts[1])
+    const uInt8Array = new Uint8Array(raw.length)
+    for (let i = 0; i < raw.length; ++i) {
+      uInt8Array[i] = raw.charCodeAt(i)
+    }
+    const blob = new Blob([uInt8Array], {type: contentType})
+    return window.URL.createObjectURL(blob)
+  }
+
+  /**
    * [draw description]
    * @param  {[type]}   url      [图片url]
    * @param  {[type]}   x        [相对x偏移]
@@ -129,8 +145,8 @@ class App extends React.Component {
     const file = event.target.files[0] || event.dataTransfer.files[0]
     reader.onload = (e) => {
       const base64 = e.target.result;
-      if (base64.length > 1024 * 1536) {
-        toast.warn("图片大小不能超过1.5M", {
+      if (file.size > 1024 * 1024 * 10) {
+        toast.warn("图片大小不能超过10M", {
           position: toast.POSITION.BOTTOM_RIGHT,
         })
         return
@@ -191,7 +207,10 @@ class App extends React.Component {
               <input type="file" id="upload" accept="image/*" />
               <button className="button">上传图片</button>
             </div>
-            <a className="button" download href={this.state.theme} onClick={this.downloadImage}>下载图片</a>
+            <a className="button" download
+              href={this.base64ToBlob(this.state.theme)}
+              onClick={this.downloadImage}
+            >下载图片</a>
             <button className="button" onClick={() => {
               this.reset(this.state.size, this.state.themeType)
             }}>重置</button>
