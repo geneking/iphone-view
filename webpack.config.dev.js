@@ -48,5 +48,6 @@ module.exports = {
     port: '8808',
     proxy: {
     }
-  }
+  },
+  target: 'electron-renderer'
 };

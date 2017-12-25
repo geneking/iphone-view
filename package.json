@@ -2,12 +2,14 @@
   "name": "iphone-view",
   "version": "0.1.0",
   "description": "",
-  "main": "main.js",
+  "main": "app.js",
   "scripts": {
-    "start": "./node_modules/.bin/electron .",
+    "watch": "webpack --watch",
+    "start": "node_modules/.bin/electron .",
+    "build": "webpack",
     "dev": "webpack-dev-server --config webpack.config.dev.js",
-    "build:mac": "electron-builder --mac",
-    "build:win": "electron-builder --win --x64",
+    "build:mac": "webpack && electron-builder --mac",
+    "build:win": "webpack && electron-builder --win --x64",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "jinweigang",
