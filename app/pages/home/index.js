@@ -43,7 +43,7 @@ class App extends React.Component {
    * [baseb4ToBlob base64转blob]
    * @param  {[type]} dataURL [base64编码]
    */
-  base64ToBlob(dataURL) {
+  base64ToBlob = (dataURL) => {
     const parts = dataURL.split(';base64,')
     const contentType = parts[0].split(':')[1]
     const raw = window.atob(parts[1])
@@ -101,14 +101,14 @@ class App extends React.Component {
 
   /**
    * [downloadImage 下载图片]
-   * @param  {[type]} event [description]
+   * @param  {[type]} e [description]
    */
-  downloadImage = (event) => {
+  downloadImage = (e) => {
     if (this.state.combineSuccess) return
     toast.warn("图片暂未合成，请上传合成后下载", {
       position: toast.POSITION.BOTTOM_RIGHT,
     })
-    event.preventDefault()
+    e.preventDefault()
   }
 
   /**
@@ -140,9 +140,9 @@ class App extends React.Component {
    * [uploadImage 上传图片回调]
    * @param  {[type]} event [description]
    */
-  uploadImage = (event) => {
+  uploadImage = (ev) => {
     const reader = new FileReader()
-    const file = event.target.files[0] || event.dataTransfer.files[0]
+    const file = ev.target.files[0] || ev.dataTransfer.files[0]
     reader.onload = (e) => {
       const base64 = e.target.result;
       if (file.size > 1024 * 1024 * 10) {

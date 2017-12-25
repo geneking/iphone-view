@@ -11,6 +11,6 @@
 * npm run mac
 ### windows
 * npm run watch
-* npm run mac
+* npm run win
 
 ![result](./app/assets/result.jpg)
