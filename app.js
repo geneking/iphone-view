@@ -11,6 +11,7 @@ function createWindow () {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    titleBarStyle: 'hidden',
     icon: path.join(__dirname, 'app/assets/icon.icns')
   })
 
