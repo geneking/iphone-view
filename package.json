@@ -30,7 +30,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "css-loader": "^0.28.7",
-    "electron": "^6.0.0",
+    "electron": "^9.1.0",
     "electron-packager": "^10.1.0",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
